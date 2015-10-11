@@ -8,7 +8,16 @@
 
 <style>
 * {
-    font-family: 'Roboto Condensed', sans-serif;
+  
+  font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+svg {
+
+  border: dashed;
+  border-width: 1px;
+
 }
 </style>
 
@@ -90,7 +99,7 @@ function bargraph()
      .attr("width","5")
      .attr("height",function(d){return yHeightScale(d.temp);})
      .attr("x",function(d,i){return i*15+93})
-     .attr("y", function(d,i){return 250-yHeightScale(d.temp);})
+     .attr("y", function(d,i){return 280-yHeightScale(d.temp);})
      .attr("fill",function(d,i){if(d.temp < 60) return "#ffac7f"; else return "#ff5a00";});
   var d3temp = d3.select("svg");
   d3temp.append("g")
@@ -98,24 +107,24 @@ function bargraph()
      .attr("fill","rgba(0,0,0,0)")
      .attr("stroke","black")
      .attr("id","xAxis")
-     .attr("transform","translate(80,250)")
+     .attr("transform","translate(80,280)")
      .call(xAxis);
   d3temp.append("g")
      .attr("class","axis y_axis")
-     .attr("transform","translate(80,0)")
+     .attr("transform","translate(80,30)")
      .attr("fill","rgba(0,0,0,0)")
      .attr("stroke","black")
      .call(yAxis);
     
   d3temp.append("text")
      .attr("x","400")
-     .attr("y","300")
+     .attr("y","330")
      .text("Next 48 hours");
     
-  d3temp.append("text")
-     .attr("transform","rotate(90)")
+  d3temp.append("text"
+)     .attr("transform","rotate(90)")
      .attr("x","70")
-     .attr("y","-30")
+     .attr("y","-20")
      .text("Temperature \xB0F");
 }
 </script>
