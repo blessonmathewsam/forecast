@@ -1,1 +1,136 @@
-"My Page" 
+<html>
+
+<head>
+  <title >Weather Forecast</title>
+</head>
+
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+
+<style>
+* {
+  
+  font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+svg {
+
+  border: dashed;
+  border-width: 1px;
+
+}
+</style>
+
+<body>
+
+<!-- Import Javascript and d3 via CDN -->
+<script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<p id="timezone"></p>
+<p id="temperature"></p>
+<p id="humidity"></p>
+
+<!-- div to be filled by d3 -->
+<div style="width:1050px; position:absolute; z-index:15; top:50%; left:30%; margin:-100px 0 0 -150px;">
+</div>
+
+<script>
+var jsondata=[];
+var wdata=[];
+var xdata=[];
+var ydata=[];
+// Get data from forecast.io via API call
+$(document).ready(function() {
+   $.ajax({
+      url: 'https://api.forecast.io/forecast/5c24f00ddd4565e7609478ce5f5115fb/43.0002,-78.788895',
+      data: {
+         format: 'json'
+      },
+      error: function() {
+         $('#info').html('<p>An error has occurred</p>');
+      },
+      dataType: 'jsonp',
+      success: function(data) {
+        if("hourly" in data){
+          $("#timezone").append("Current Timezone: " + data.timezone);
+          $("#temperature").append("Current Temperature: " + data.currently.temperature + " F");
+          $("#humidity").append("Current Humidity: " + data.currently.humidity*100 + "%");
+          jsondata = data;
+          bargraph();
+        }
+        else
+          alert("fail");
+      },
+      type: 'GET'
+   });
+});
+// Plot the graph which shows the maximum temperature for the next 48 hours
+function bargraph()
+{
+  for(var i=0;i<jsondata.hourly.data.length;i++)
+  {
+     var newdate = new Date(jsondata.hourly.data[i].time*1000);
+     wdata.push({"hour":newdate.getHours(),"temp":jsondata.hourly.data[i].temperature});
+     xdata.push(jsondata.hourly.data[i].time);
+     ydata.push(jsondata.hourly.data[i].temperature);
+  }
+  var xScale = d3.scale.linear()
+     .domain([0,48])
+     .range([0,750]);
+  var yScale = d3.scale.linear()
+     .domain([0,d3.max(wdata,function(d){return d.temp;})])
+     .range([250,0]);
+  var yHeightScale = d3.scale.linear()
+     .domain([0,d3.max(wdata,function(d){return d.temp;})])
+     .range([0,250]);
+ 
+  var xAxis = d3.svg.axis()
+     .scale(xScale)
+     .orient("bottom")
+     .ticks(10);
+  var yAxis = d3.svg.axis()
+     .scale(yScale)
+     .orient("left").ticks(10);
+  d3.select("div").append("svg").attr("width","900").attr("height","350").selectAll("rect")
+     .data(wdata)
+     .enter()
+     .append("rect")
+     .attr("width","5")
+     .attr("height",function(d){return yHeightScale(d.temp);})
+     .attr("x",function(d,i){return i*15+93})
+     .attr("y", function(d,i){return 280-yHeightScale(d.temp);})
+     .attr("fill",function(d,i){if(d.temp < 60) return "#ffac7f"; else return "#ff5a00";});
+  var d3temp = d3.select("svg");
+  d3temp.append("g")
+     .attr("class","axis x_axis")
+     .attr("fill","rgba(0,0,0,0)")
+     .attr("stroke","black")
+     .attr("id","xAxis")
+     .attr("transform","translate(80,280)")
+     .call(xAxis);
+  d3temp.append("g")
+     .attr("class","axis y_axis")
+     .attr("transform","translate(80,30)")
+     .attr("fill","rgba(0,0,0,0)")
+     .attr("stroke","black")
+     .call(yAxis);
+    
+  d3temp.append("text")
+     .attr("x","400")
+     .attr("y","330")
+     .text("Next 48 hours");
+    
+  d3temp.append("text"
+)     .attr("transform","rotate(90)")
+     .attr("x","70")
+     .attr("y","-20")
+     .text("Temperature \xB0F");
+}
+</script>
+
+</body>
+
+
+
+</html>
