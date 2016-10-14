@@ -1,0 +1,70 @@
+html, body {
+    height: 100%;
+}
+
+#cover{
+    height: 100%;
+    background: url('../img/weather.jpg') center center;
+    background-size: cover;
+    position: relative;
+}
+
+#cover .add-box{
+    text-align: center;
+    width: 70%;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+#chart-min,
+#chart-hr,
+#chart-day{
+    height: 100%;
+    background: url('../img/cork-wallet.png');
+    background-repeat: repeat-x repeat-y;
+    position: relative;
+}
+
+#chart-min .container,
+#chart-hr .container,
+#chart-day .container{
+    padding-top: 5rem;
+}
+
+#chart-min .col-md-4{
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 20px;
+}
+
+#chart-min .chart-box,
+#chart-hr .chart-box,
+#chart-day .chart-box{
+    text-align: center;
+    width: 80%;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.fa-arrow-down,
+.fa-arrow-up{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    top: 80%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 1px solid black;
+    color: black;
+}
+

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.css" rel="stylesheet" type="text/css">
+    
+</head>
+<body>
+  
+   <section id="cover"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 add-box">
+                    <div class="input-group">
+                      <input type="text" class="form-control search-box" id="autocomplete" onFocus="geolocate()" placeholder="Enter a location.">
+                      <span class="input-group-btn">
+                          <a class="btn-go" href="#chart-min"><button class="btn btn-default" type="button">Go!</button></a>
+                      </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+    
+    <section id="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-bottom">
+           <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#cover">Forecast</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">    
+                <ul class="nav navbar-nav">
+                    <li><a href="#chart-min">Minutely</a></li>
+                    <li><a href="#chart-hr">Hourly</a></li>
+                    <li><a href="#chart-day">Daily</a></li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+    </section> 
+      
+    <section id="chart-min">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 timezone"></div>
+                <div class="col-md-4 temperature"></div>
+                <div class="col-md-4 humidity"></div>
+            </div>   
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 chart-box">
+                    <div id="chart-minutely"></div>
+                </div>
+                <a href="#chart-hr" class="hr-click"><i class="fa fa-arrow-down"></i></a>
+            </div>
+        </div>
+    </section> 
+      
+    <section id="chart-hr">
+        <div class="container">   
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 chart-box">
+                    <div id="chart-hourly"></div>
+                </div>
+                <a href="#chart-day" class="day-click"><i class="fa fa-arrow-down"></i></a>
+            </div>
+        </div>
+    </section> 
+       
+    <section id="chart-day">
+        <div class="container"> 
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 chart-box">
+                    <div id="chart-daily"></div>
+                </div>
+                <a href="#cover" class="cover-click"><i class="fa fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </section>    
+        
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=KEY&libraries=places&callback=initAutocomplete" async defer></script>
+</body>
+</html>
